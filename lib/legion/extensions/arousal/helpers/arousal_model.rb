@@ -17,7 +17,8 @@ module Legion
 
           def stimulate(amount:, source: :unknown)
             boost = amount || BOOST_FACTOR
-            raw = @arousal + boost.to_f.clamp(0.0, 1.0)
+            multiplier = SOURCE_MULTIPLIERS.fetch(source, SOURCE_MULTIPLIERS[:unknown])
+            raw = @arousal + (boost.to_f.clamp(0.0, 1.0) * multiplier)
             update_arousal(raw, source: source)
           end
 

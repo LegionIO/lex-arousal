@@ -38,6 +38,30 @@ RSpec.describe Legion::Extensions::Arousal::Helpers::ArousalModel do
       result = model.stimulate(amount: 0.2, source: :test)
       expect(result).to eq(model.arousal)
     end
+
+    it 'applies a higher multiplier for threat sources' do
+      model_a = described_class.new
+      model_b = described_class.new
+      model_a.stimulate(amount: 0.2, source: :threat)
+      model_b.stimulate(amount: 0.2, source: :routine)
+      expect(model_a.arousal).to be > model_b.arousal
+    end
+
+    it 'applies emergency multiplier (1.8x)' do
+      model_a = described_class.new
+      model_b = described_class.new
+      model_a.stimulate(amount: 0.2, source: :emergency)
+      model_b.stimulate(amount: 0.2, source: :unknown)
+      expect(model_a.arousal).to be > model_b.arousal
+    end
+
+    it 'uses 1.0 multiplier for unrecognized sources' do
+      model_a = described_class.new
+      model_b = described_class.new
+      model_a.stimulate(amount: 0.2, source: :something_new)
+      model_b.stimulate(amount: 0.2, source: :unknown)
+      expect(model_a.arousal).to eq(model_b.arousal)
+    end
   end
 
   describe '#calm' do

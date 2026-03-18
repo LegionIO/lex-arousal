@@ -11,7 +11,7 @@ Yerkes-Dodson arousal regulation for brain-modeled agentic AI. Models the invert
 ## Gem Info
 
 - **Gem name**: `lex-arousal`
-- **Version**: `0.1.0`
+- **Version**: `0.1.1`
 - **Module**: `Legion::Extensions::Arousal`
 - **Ruby**: `>= 3.4`
 - **License**: MIT
@@ -84,4 +84,4 @@ No actor defined — callers drive the arousal lifecycle. Integrates with lex-em
 - Arousal is additive/subtractive (stimulate/calm), not EMA — EMA is used only for direction in ArousalModel, actual arousal is a direct accumulation with decay
 - `PERFORMANCE_SENSITIVITY = 4.0` makes the inverted-U fairly sharp: deviating 0.3 from optimal reduces performance to ~exp(-0.36) ≈ 0.7
 - Gap threshold in `compute_guidance` is ±0.15: within this range the guidance is `:maintain`
-- The `source:` parameter on `stimulate` is logged but not used for differential processing
+- The `source:` parameter on `stimulate` applies `SOURCE_MULTIPLIERS` — threats (1.5x) and emergencies (1.8x) spike arousal more than routine (0.7x) or scheduled (0.6x) signals; unrecognized sources default to 1.0x

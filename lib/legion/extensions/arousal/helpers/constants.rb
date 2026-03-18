@@ -18,6 +18,19 @@ module Legion
           AROUSAL_CEILING          = 1.0
           MAX_AROUSAL_HISTORY      = 200
 
+          SOURCE_MULTIPLIERS = {
+            threat:    1.5,
+            emergency: 1.8,
+            conflict:  1.3,
+            novelty:   1.2,
+            social:    1.1,
+            routine:   0.7,
+            scheduled: 0.6,
+            decay:     1.0,
+            calm:      1.0,
+            unknown:   1.0
+          }.freeze
+
           TASK_COMPLEXITIES = {
             trivial:  0.8,
             simple:   0.7,
